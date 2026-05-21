@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ui.CrearReporteFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Título -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crear Reporte"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_dark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingresa la información del reporte ciudadano"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"
+            android:textColor="#6B7280"/>
+
+        <!-- Campo título -->
+
+        <EditText
+            android:id="@+id/etTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:hint="Título del reporte"
+            android:backgroundTint="@color/blue_primary"/>
+
+        <!-- Campo descripción -->
+
+        <EditText
+            android:id="@+id/etDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Descripción"
+            android:minLines="3"
+            android:gravity="top"
+            android:backgroundTint="@color/blue_primary"/>
+
+        <!-- Campo ubicación -->
+
+        <EditText
+            android:id="@+id/etUbicacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Ubicación"
+            android:backgroundTint="@color/blue_primary"/>
+
+        <!-- Botón guardar -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGuardar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+
+            android:text="Guardar Reporte"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+
+            android:padding="14dp"
+
+            android:backgroundTint="@color/blue_primary"
+
+            app:cornerRadius="12dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

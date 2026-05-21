@@ -2,28 +2,70 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@color/background"
     android:padding="24dp">
 
-    <EditText
-        android:layout_width="match_parent"
+    <!-- Título -->
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Usuario"/>
+        android:text="Nodo Cívico"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_dark"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inicia sesión para continuar"
+        android:textSize="16sp"
+        android:textColor="#6B7280"
+        android:layout_marginTop="6dp"/>
+
+    <!-- Usuario -->
 
     <EditText
+        android:id="@+id/etUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:hint="Usuario"
+        android:backgroundTint="@color/blue_primary"/>
+
+    <!-- Contraseña -->
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:hint="Contraseña"
-        android:layout_marginTop="10dp"/>
+        android:inputType="textPassword"
+        android:backgroundTint="@color/blue_primary"/>
 
-    <Button
+    <!-- Botón ingresar -->
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
+        android:layout_marginTop="24dp"
+
         android:text="Ingresar"
-        android:layout_marginTop="20dp"/>
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+
+        android:padding="14dp"
+
+        android:backgroundTint="@color/blue_primary"
+
+        app:cornerRadius="12dp"/>
 
 </LinearLayout>

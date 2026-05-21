@@ -4,12 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.TextView
+import com.google.android.material.button.MaterialButton
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.rodriguez.nodocivico.R
+import com.rodriguez.nodocivico.viewmodel.ReporteViewModel
 
 class HomeFragment : Fragment() {
+
+    private lateinit var viewModel: ReporteViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,8 +28,49 @@ class HomeFragment : Fragment() {
             false
         )
 
-        val btnReports = view.findViewById<Button>(R.id.btnReports)
-        val btnCreate = view.findViewById<Button>(R.id.btnCreate)
+        // Botones
+
+        val btnReports =
+            view.findViewById<MaterialButton>(R.id.btnReports)
+
+        val btnCreate =
+            view.findViewById<MaterialButton>(R.id.btnCreate)
+
+        // TextViews estadísticas
+
+        val txtTotalReportes =
+            view.findViewById<TextView>(R.id.txtTotalReportes)
+
+        val txtPendientes =
+            view.findViewById<TextView>(R.id.txtPendientes)
+
+        // ViewModel
+
+        viewModel = ViewModelProvider(this)[
+            ReporteViewModel::class.java
+        ]
+
+        // Mostrar total reportes
+
+        viewModel.totalReportes.observe(
+            viewLifecycleOwner
+        ) { total ->
+
+            txtTotalReportes.text =
+                total.toString()
+        }
+
+        // Mostrar pendientes
+
+        viewModel.totalPendientes.observe(
+            viewLifecycleOwner
+        ) { pendientes ->
+
+            txtPendientes.text =
+                pendientes.toString()
+        }
+
+        // Navegación
 
         btnReports.setOnClickListener {
 
