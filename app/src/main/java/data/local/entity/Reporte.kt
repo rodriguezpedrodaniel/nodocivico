@@ -9,6 +9,8 @@ data class Reporte(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
 
+    val apiId: String = "",
+
     val titulo: String,
 
     val descripcion: String,

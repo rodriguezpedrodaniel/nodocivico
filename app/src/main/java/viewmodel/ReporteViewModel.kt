@@ -46,4 +46,9 @@ class ReporteViewModel(application: Application)
 
             repository.eliminar(reporte)
         }
+    fun sincronizar() =
+        viewModelScope.launch {
+
+            repository.sincronizarReportes()
+        }
 }

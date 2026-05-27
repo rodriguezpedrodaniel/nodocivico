@@ -9,7 +9,7 @@ import com.rodriguez.nodocivico.data.local.entity.Reporte
 
 @Database(
     entities = [Reporte::class],
-    version = 1,
+    version = 4,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -21,9 +21,7 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(
-            context: Context
-        ): AppDatabase {
+        fun getDatabase(context: Context): AppDatabase {
 
             return INSTANCE ?: synchronized(this) {
 
@@ -31,7 +29,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "nodo_civico_db"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
 
                 INSTANCE = instance
 

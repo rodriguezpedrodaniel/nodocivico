@@ -28,6 +28,14 @@
         android:textSize="16sp"
         android:textColor="#6B7280"
         android:layout_marginTop="6dp"/>
+    <TextView
+        android:id="@+id/txtConexion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verificando conexión..."
+        android:textColor="#2563EB"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
 
     <!-- Tarjetas estadísticas -->
 
@@ -154,5 +162,11 @@
         android:backgroundTint="@color/blue_primary"
 
         app:cornerRadius="12dp"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSync"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sincronizar Reportes"
+        android:layout_marginTop="16dp"/>
 
 </LinearLayout>
