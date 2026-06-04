@@ -1,7 +1,42 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.NodoCivico" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
+    <!-- BASE DARK THEME -->
+
+    <style
+        name="Base.Theme.NodoCivico"
+        parent="Theme.Material3.DayNight.NoActionBar">
+
+        <!-- COLORES PRINCIPALES -->
+
+        <item name="colorPrimary">@color/blue_secondary</item>
+        <item name="colorPrimaryContainer">@color/blue_primary</item>
+
+        <item name="colorSecondary">@color/blue_secondary</item>
+
+        <!-- STATUS BAR -->
+
+        <item name="android:statusBarColor">
+            @color/text_dark
+        </item>
+
+        <!-- NAVIGATION BAR -->
+
+        <item name="android:navigationBarColor">
+            @color/text_dark
+        </item>
+
+        <!-- BACKGROUND -->
+
+        <item name="android:windowBackground">
+            @color/text_dark
+        </item>
+
+        <!-- TEXTO -->
+
+        <item name="android:textColorPrimary">
+            @android:color/white
+        </item>
+
     </style>
+
 </resources>

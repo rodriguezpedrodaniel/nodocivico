@@ -10,5 +10,11 @@ data class ReporteRequest(
 
     val categoria: String,
 
-    val estado: String
+    val ubicacion: String,
+
+    val estado: String = "Pendiente",
+
+    val fecha: Long = System.currentTimeMillis(),
+
+    val sincronizado: Boolean = false
 )

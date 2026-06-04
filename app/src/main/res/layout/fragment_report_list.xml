@@ -9,17 +9,54 @@
     android:background="@color/background"
     tools:context=".ui.fragments.ReportListFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerReports"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lista de Reportes"
+            android:textStyle="bold"
+            android:textSize="28sp"
+            android:textColor="@color/text_dark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Consulta y administra los reportes ciudadanos"
+            android:textSize="14sp"
+            android:textColor="#6B7280"
+            android:layout_marginTop="4dp"/>
+
+    </LinearLayout>
+
+    <!-- MENSAJE VACÍO -->
+
     <TextView
         android:id="@+id/txtEmpty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No hay reportes"
+        android:text="No hay reportes registrados"
         android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#6B7280"
         android:layout_gravity="center"
+        android:layout_marginTop="40dp"
         android:visibility="gone"/>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerReports"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"/>
 
 </LinearLayout>

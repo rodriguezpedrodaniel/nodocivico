@@ -3,11 +3,13 @@ package com.rodriguez.nodocivico.ui.fragments
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -19,130 +21,100 @@ class HomeFragment : Fragment() {
 
     private lateinit var viewModel: ReporteViewModel
 
+    private lateinit var btnReports: MaterialButton
+    private lateinit var btnCreate: MaterialButton
+    private lateinit var btnSync: MaterialButton
+    private lateinit var txtTotalReportes: TextView
+    private lateinit var txtPendientes: TextView
+    private lateinit var txtConexion: TextView
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        return inflater.inflate(R.layout.fragment_home, container, false)
+    }
 
-        val view = inflater.inflate(
-            R.layout.fragment_home,
-            container,
-            false
-        )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        // Botones
+        viewModel = ViewModelProvider(this)[ReporteViewModel::class.java]
 
-        val btnReports =
-            view.findViewById<MaterialButton>(R.id.btnReports)
+        initViews(view)
+        observarDatos()
+        actualizarEstadoConexion()
+        configurarBotones()
+    }
 
-        val btnCreate =
-            view.findViewById<MaterialButton>(R.id.btnCreate)
+    private fun initViews(view: View) {
+        btnReports       = view.findViewById(R.id.btnReports)
+        btnCreate        = view.findViewById(R.id.btnCreate)
+        btnSync          = view.findViewById(R.id.btnSync)
+        txtTotalReportes = view.findViewById(R.id.txtTotalReportes)
+        txtPendientes    = view.findViewById(R.id.txtPendientes)
+        txtConexion      = view.findViewById(R.id.txtConexion)
+    }
 
-        val btnSync =
-            view.findViewById<MaterialButton>(R.id.btnSync)
-
-        // TextViews
-
-        val txtTotalReportes =
-            view.findViewById<TextView>(R.id.txtTotalReportes)
-
-        val txtPendientes =
-            view.findViewById<TextView>(R.id.txtPendientes)
-
-        val txtConexion =
-            view.findViewById<TextView>(R.id.txtConexion)
-
-        // ViewModel
-
-        viewModel = ViewModelProvider(this)[
-            ReporteViewModel::class.java
-        ]
-
-        // Mostrar total de reportes
-
-        viewModel.totalReportes.observe(
-            viewLifecycleOwner
-        ) { total ->
-
-            txtTotalReportes.text =
-                total.toString()
+    private fun observarDatos() {
+        viewModel.totalReportes.observe(viewLifecycleOwner) { total ->
+            txtTotalReportes.text = total.toString()
+        }
+        viewModel.totalPendientes.observe(viewLifecycleOwner) { pendientes ->
+            txtPendientes.text = pendientes.toString()
         }
 
-        // Mostrar pendientes
-
-        viewModel.totalPendientes.observe(
-            viewLifecycleOwner
-        ) { pendientes ->
-
-            txtPendientes.text =
-                pendientes.toString()
-        }
-
-        // Estado de conexión
-
-        if (hayInternet()) {
-
-            txtConexion.text =
-                "Conectado a internet"
-
-        } else {
-
-            txtConexion.text =
-                "Sin conexión"
-        }
-
-        // Navegación
-
-        btnReports.setOnClickListener {
-
-            findNavController().navigate(
-                R.id.action_homeFragment_to_reportListFragment
-            )
-        }
-
-        btnCreate.setOnClickListener {
-
-            findNavController().navigate(
-                R.id.action_homeFragment_to_createReportFragment
-            )
-        }
-        btnSync.setOnClickListener {
-
-            if (hayInternet()) {
-
-                viewModel.sincronizar()
-
-                txtConexion.text =
-                    "Reportes sincronizados"
-
+        viewModel.sincronizando.observe(viewLifecycleOwner) { sincronizando ->
+            if (sincronizando) {
+                btnSync.isEnabled = false
+                txtConexion.text = "🔄 Sincronizando..."
             } else {
-
-                txtConexion.text =
-                    "Sin conexión a internet"
+                btnSync.isEnabled = true
+                txtConexion.text = if (hayInternet()) "🌐 Conectado" else "📡 Sin conexión"
             }
         }
+    }
 
-        return view
+    private fun configurarBotones() {
+        btnReports.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_reportListFragment)
+        }
+        btnCreate.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_createReportFragment)
+        }
+        btnSync.setOnClickListener {
+            sincronizar()
+        }
+    }
+
+    private fun sincronizar() {
+        if (hayInternet()) {
+
+            viewModel.sincronizar()
+            Toast.makeText(requireContext(), "✅ Reportes sincronizados", Toast.LENGTH_SHORT).show()
+        } else {
+            txtConexion.text = "📡 Sin conexión"
+            Toast.makeText(requireContext(), "Sin internet para sincronizar", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun actualizarEstadoConexion() {
+        txtConexion.text = if (hayInternet()) "🌐 Conectado" else "📡 Sin conexión"
     }
 
     private fun hayInternet(): Boolean {
-
         val connectivityManager =
-            requireContext().getSystemService(
-                Context.CONNECTIVITY_SERVICE
-            ) as ConnectivityManager
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-        val network =
-            connectivityManager.activeNetwork
-                ?: return false
-
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(network)
-                ?: return false
-
-        return capabilities.hasCapability(
-            NetworkCapabilities.NET_CAPABILITY_INTERNET
-        )
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val network = connectivityManager.activeNetwork ?: return false
+            val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+            capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                } else {
+                    @Suppress("DEPRECATION")
+                    val networkInfo = connectivityManager.activeNetworkInfo
+                    @Suppress("DEPRECATION")
+                    networkInfo != null && networkInfo.isConnected
+                }
     }
 }

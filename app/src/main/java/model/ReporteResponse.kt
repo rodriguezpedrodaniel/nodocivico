@@ -10,5 +10,11 @@ data class ReporteResponse(
 
     val categoria: String,
 
-    val estado: String
+    val ubicacion: String,
+
+    val estado: String,
+
+    val fecha: Long,
+
+    val sincronizado: Boolean
 )

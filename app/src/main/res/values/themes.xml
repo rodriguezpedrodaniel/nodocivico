@@ -1,9 +1,48 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.NodoCivico" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Tema Base -->
+
+    <style
+        name="Base.Theme.NodoCivico"
+        parent="Theme.Material3.DayNight.NoActionBar">
+
+        <!-- Colores -->
+
+        <item name="colorPrimary">@color/blue_primary</item>
+        <item name="colorPrimaryContainer">@color/blue_secondary</item>
+        <item name="colorSecondary">@color/blue_secondary</item>
+
+        <!-- Status bar -->
+
+        <item name="android:statusBarColor">
+            @color/blue_primary
+        </item>
+
+        <!-- Navigation bar -->
+
+        <item name="android:navigationBarColor">
+            @color/background
+        </item>
+
+        <!-- Fondo -->
+
+        <item name="android:windowBackground">
+            @color/background
+        </item>
+
+        <!-- Texto -->
+
+        <item name="android:textColorPrimary">
+            @color/text_dark
+        </item>
+
     </style>
 
-    <style name="Theme.NodoCivico" parent="Base.Theme.NodoCivico" />
+    <!-- Tema principal -->
+
+    <style
+        name="Theme.NodoCivico"
+        parent="Base.Theme.NodoCivico" />
+
 </resources>

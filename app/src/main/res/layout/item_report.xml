@@ -2,13 +2,15 @@
 
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    card_view:cardCornerRadius="18dp"
-    card_view:cardElevation="6dp"
-    card_view:cardBackgroundColor="@android:color/white">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginBottom="4dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="6dp"
+    app:cardBackgroundColor="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,58 +18,105 @@
         android:orientation="vertical"
         android:padding="18dp">
 
-        <!-- Título -->
+        <!-- TITULO -->
 
         <TextView
             android:id="@+id/txtTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Título"
+            android:text="Hueco en la vía principal"
+            android:textColor="@color/text_dark"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_dark"/>
+            android:textStyle="bold"/>
 
-        <!-- Descripción -->
+        <!-- DESCRIPCION -->
 
         <TextView
             android:id="@+id/txtDescripcion"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Descripción"
-            android:textSize="15sp"
+            android:text="Existe un hueco grande que afecta el tránsito de vehículos."
             android:textColor="#4B5563"
+            android:textSize="14sp"
             android:layout_marginTop="8dp"/>
 
-        <!-- Categoría -->
+        <!-- CATEGORIA -->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#DBEAFE"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            android:layout_marginTop="14dp">
+
+            <TextView
+                android:id="@+id/txtCategoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Infraestructura"
+                android:textColor="@color/blue_primary"
+                android:textStyle="bold"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+        <!-- ESTADO -->
 
         <TextView
-            android:id="@+id/txtCategoria"
+            android:id="@+id/txtEstado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Categoría"
-            android:textSize="14sp"
+            android:text="Estado: Pendiente"
+            android:textColor="#DC2626"
             android:textStyle="bold"
-            android:textColor="@color/blue_primary"
-            android:layout_marginTop="10dp"/>
+            android:textSize="13sp"
+            android:layout_marginTop="12dp"/>
 
-        <!-- Botón eliminar -->
+        <!-- BOTONES -->
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnEliminar"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="18dp">
 
-            android:layout_marginTop="16dp"
+            <!-- EDITAR -->
 
-            android:text="Eliminar"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Editar"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/blue_primary"
+                app:cornerRadius="12dp"/>
 
-            android:background="@drawable/button_blue"
-            android:backgroundTint="@null"
+            <!-- ESPACIO -->
 
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:padding="10dp"/>
+            <Space
+                android:layout_width="12dp"
+                android:layout_height="wrap_content"/>
+
+            <!-- ELIMINAR -->
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEliminar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Eliminar"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#DC2626"
+                app:cornerRadius="12dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

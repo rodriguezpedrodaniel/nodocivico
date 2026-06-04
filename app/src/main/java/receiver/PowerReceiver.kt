@@ -7,15 +7,18 @@ import android.widget.Toast
 
 class PowerReceiver : BroadcastReceiver() {
 
-    override fun onReceive(context: Context, intent: Intent?) {
+    override fun onReceive(
+        context: Context,
+        intent: Intent?
+    ) {
 
-        when(intent?.action) {
+        when (intent?.action) {
 
             Intent.ACTION_POWER_CONNECTED -> {
 
                 Toast.makeText(
                     context,
-                    "Cargador conectado",
+                    "⚡ Cargador conectado",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -24,7 +27,7 @@ class PowerReceiver : BroadcastReceiver() {
 
                 Toast.makeText(
                     context,
-                    "Cargador desconectado",
+                    "🔋 Cargador desconectado",
                     Toast.LENGTH_SHORT
                 ).show()
             }

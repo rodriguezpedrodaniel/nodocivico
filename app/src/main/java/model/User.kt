@@ -2,11 +2,15 @@ package com.rodriguez.nodocivico.model
 
 data class User(
 
-    val id: Int,
+    val id: Int = 0,
 
-    val name: String,
+    val nombre: String,
 
-    val email: String,
+    val correo: String,
 
-    val role: String
+    val telefono: String = "",
+
+    val rol: String = "Ciudadano",
+
+    val activo: Boolean = true
 )

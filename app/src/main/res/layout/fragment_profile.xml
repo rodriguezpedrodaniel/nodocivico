@@ -2,9 +2,12 @@
 
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/background"
+    tools:context=".ui.fragments.ProfileFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,94 +15,323 @@
         android:orientation="vertical"
         android:padding="24dp">
 
-        <!-- Título -->
+        <!-- HEADER -->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Perfil de Usuario"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_dark"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gestiona tu información personal"
-            android:textSize="16sp"
-            android:layout_marginTop="6dp"
-            android:textColor="#6B7280"/>
-
-        <!-- Campo Nombre -->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre"
-            android:textStyle="bold"
-            android:textColor="@color/text_dark"
-            android:layout_marginTop="24dp"/>
-
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Pedro Rodriguez"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@color/blue_primary"
-            android:padding="12dp"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <!-- Campo Correo -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                app:cardCornerRadius="45dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="@color/blue_primary">
 
-        <TextView
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="20dp"
+                    android:src="@mipmap/ic_launcher_round"
+                    app:tint="@android:color/white"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pedro Rodriguez"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_dark"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Administrador"
+                    android:textSize="14sp"
+                    android:textColor="#6B7280"
+                    android:layout_marginTop="4dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Space
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Correo"
-            android:textStyle="bold"
-            android:textColor="@color/text_dark"
-            android:layout_marginTop="16dp"/>
+            android:layout_height="28dp"/>
 
-        <EditText
+        <!-- CARD PERFIL -->
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="pedro@email.com"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@color/blue_primary"
-            android:padding="12dp"/>
+            app:cardCornerRadius="24dp"
+            app:cardElevation="5dp"
+            app:cardBackgroundColor="@android:color/white">
 
-        <!-- Campo Zona -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="22dp">
 
-        <TextView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Información Personal"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_dark"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Actualiza tus datos personales"
+                    android:textSize="14sp"
+                    android:textColor="#6B7280"
+                    android:layout_marginTop="4dp"/>
+
+                <!-- NOMBRE -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre completo"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_dark"
+                    android:textSize="14sp"
+                    android:layout_marginTop="24dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:boxBackgroundMode="filled"
+                    app:boxCornerRadiusBottomEnd="16dp"
+                    app:boxCornerRadiusBottomStart="16dp"
+                    app:boxCornerRadiusTopEnd="16dp"
+                    app:boxCornerRadiusTopStart="16dp"
+                    app:boxStrokeColor="@color/blue_primary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="14dp"
+                        android:textSize="15sp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- EMAIL -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Correo electrónico"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_dark"
+                    android:textSize="14sp"
+                    android:layout_marginTop="18dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilCorreo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:boxBackgroundMode="filled"
+                    app:boxCornerRadiusBottomEnd="16dp"
+                    app:boxCornerRadiusBottomStart="16dp"
+                    app:boxCornerRadiusTopEnd="16dp"
+                    app:boxCornerRadiusTopStart="16dp"
+                    app:boxStrokeColor="@color/blue_primary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etCorreo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:padding="14dp"
+                        android:textSize="15sp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- ZONA -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Zona / Sector"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_dark"
+                    android:textSize="14sp"
+                    android:layout_marginTop="18dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilZona"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:boxBackgroundMode="filled"
+                    app:boxCornerRadiusBottomEnd="16dp"
+                    app:boxCornerRadiusBottomStart="16dp"
+                    app:boxCornerRadiusTopEnd="16dp"
+                    app:boxCornerRadiusTopStart="16dp"
+                    app:boxStrokeColor="@color/blue_primary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etZona"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="14dp"
+                        android:textSize="15sp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- TELEFONO -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Teléfono"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_dark"
+                    android:textSize="14sp"
+                    android:layout_marginTop="18dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilTelefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:boxBackgroundMode="filled"
+                    app:boxCornerRadiusBottomEnd="16dp"
+                    app:boxCornerRadiusBottomStart="16dp"
+                    app:boxCornerRadiusTopEnd="16dp"
+                    app:boxCornerRadiusTopStart="16dp"
+                    app:boxStrokeColor="@color/blue_primary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etTelefono"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        android:padding="14dp"
+                        android:textSize="15sp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- BOTÓN -->
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGuardarPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="Guardar Cambios"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:padding="14dp"
+                    android:backgroundTint="@color/blue_primary"
+                    app:cornerRadius="18dp"/>
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- CARD ESTADISTICAS -->
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/txtTotalReportes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/blue_primary"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reportes"
+                        android:textColor="#6B7280"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/txtPendientes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/blue_primary"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pendientes"
+                        android:textColor="#6B7280"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <Space
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Zona"
-            android:textStyle="bold"
-            android:textColor="@color/text_dark"
-            android:layout_marginTop="16dp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Bloque A"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@color/blue_primary"
-            android:padding="12dp"/>
-
-        <!-- Botón -->
-
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Guardar Cambios"
-
-            android:layout_marginTop="28dp"
-
-            android:background="@drawable/button_blue"
-            android:backgroundTint="@null"
-
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:padding="14dp"/>
+            android:layout_height="24dp"/>
 
     </LinearLayout>
 

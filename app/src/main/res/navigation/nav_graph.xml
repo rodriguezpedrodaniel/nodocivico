@@ -1,69 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <navigation
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     android:id="@+id/nav_graph"
     app:startDestination="@id/splashFragment">
 
-    <!-- Splash -->
+    <!-- SPLASH -->
+
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.rodriguez.nodocivico.ui.fragments.SplashFragment"
-        android:label="SplashFragment">
+        android:label="Splash">
 
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
-            app:destination="@id/loginFragment"/>
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out"/>
+
     </fragment>
 
-    <!-- Login -->
+    <!-- LOGIN -->
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.rodriguez.nodocivico.ui.fragments.LoginFragment"
-        android:label="LoginFragment">
-
-        <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment"/>
-    </fragment>
-
-    <!-- Home -->
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.rodriguez.nodocivico.ui.fragments.HomeFragment"
-        android:label="HomeFragment">
-
-        <action
-            android:id="@+id/action_homeFragment_to_reportListFragment"
-            app:destination="@id/reportListFragment"/>
-
-        <action
-            android:id="@+id/action_homeFragment_to_createReportFragment"
-            app:destination="@id/createReportFragment"/>
-
-        <action
-            android:id="@+id/action_homeFragment_to_profileFragment"
-            app:destination="@id/profileFragment"/>
-    </fragment>
-
-    <!-- Lista de reportes -->
-    <fragment
-        android:id="@+id/reportListFragment"
-        android:name="com.rodriguez.nodocivico.ui.fragments.ReportListFragment"
-        android:label="Lista de Reportes"/>
-
-    <!-- Crear reporte -->
-    <fragment
-        android:id="@+id/createReportFragment"
-        android:name="com.rodriguez.nodocivico.ui.CrearReporteFragment"
-        android:label="Crear Reporte"/>
-
-    <!-- Perfil -->
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.rodriguez.nodocivico.ui.fragments.ProfileFragment"
-        android:label="Perfil"/>
+        android:label="Login"/>
 
 </navigation>

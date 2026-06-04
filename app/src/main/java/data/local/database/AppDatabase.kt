@@ -8,8 +8,10 @@ import com.rodriguez.nodocivico.data.local.dao.ReporteDao
 import com.rodriguez.nodocivico.data.local.entity.Reporte
 
 @Database(
-    entities = [Reporte::class],
-    version = 4,
+    entities = [
+        Reporte::class
+    ],
+    version = 6,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -21,7 +23,9 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(context: Context): AppDatabase {
+        fun getDatabase(
+            context: Context
+        ): AppDatabase {
 
             return INSTANCE ?: synchronized(this) {
 
@@ -30,7 +34,17 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "nodo_civico_db"
                 )
+
+                    // Elimina y recrea la BD
+                    // si cambias entidades
                     .fallbackToDestructiveMigration()
+
+
+                    .setJournalMode(
+                        JournalMode.TRUNCATE
+                    )
+
+
                     .build()
 
                 INSTANCE = instance

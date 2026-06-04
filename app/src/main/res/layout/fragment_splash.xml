@@ -4,16 +4,59 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
-    android:background="#2563EB">
+    android:gravity="center"
+    android:background="@color/blue_primary">
+
+    <!-- LOGO -->
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:cardCornerRadius="60dp"
+        app:cardElevation="10dp"
+        app:cardBackgroundColor="@android:color/white"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="22dp"
+            android:src="@mipmap/ic_launcher_round"
+            app:tint="@color/blue_primary"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- TITULO -->
 
     <TextView
+        android:id="@+id/txtTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nodo Cívico"
         android:textColor="@android:color/white"
-        android:textSize="32sp"
-        android:textStyle="bold"/>
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:layout_marginTop="28dp"/>
+
+    <!-- SUBTITULO -->
+
+    <TextView
+        android:id="@+id/txtSubtitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sistema de reportes ciudadanos"
+        android:textColor="#DBEAFE"
+        android:textSize="16sp"
+        android:layout_marginTop="6dp"/>
+
+    <!-- CARGANDO -->
+
+    <ProgressBar
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="40dp"
+        android:indeterminateTint="@android:color/white"/>
 
 </LinearLayout>
