@@ -101,6 +101,8 @@ class ReporteRepository(private val reporteDao: ReporteDao) {
                     fecha       = reporte.fecha,
                     sincronizado = true
                 )
+
+
                 val response = RetrofitClient.api.actualizarReporte(reporte.apiId, request)
                     if (response.isSuccessful) {
                         reporteDao.actualizarReporte(reporte.copy(sincronizado = true))

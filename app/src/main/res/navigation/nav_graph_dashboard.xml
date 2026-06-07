@@ -79,5 +79,10 @@
         android:id="@+id/profileFragment"
         android:name="com.rodriguez.nodocivico.ui.fragments.ProfileFragment"
         android:label="Perfil"/>
+    <!-- Agregar dentro del nav_graph_dashboard.xml -->
+    <fragment
+        android:id="@+id/gestionUsuariosFragment"
+        android:name="com.rodriguez.nodocivico.ui.fragments.GestionUsuariosFragment"
+        android:label="Usuarios"/>
 
 </navigation>

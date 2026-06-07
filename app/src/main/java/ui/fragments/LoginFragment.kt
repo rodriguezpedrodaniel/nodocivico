@@ -1,5 +1,6 @@
 package com.rodriguez.nodocivico.ui.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +9,14 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.rodriguez.nodocivico.DashboardActivity
 import com.rodriguez.nodocivico.R
+import com.rodriguez.nodocivico.network.RetrofitClient
+import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
 
@@ -24,17 +28,11 @@ class LoginFragment : Fragment() {
     private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_login, container, false)
-    }
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View = inflater.inflate(R.layout.fragment_login, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // FIX: todos los views se inicializan aquí, antes de cualquier uso
         tilUsuario  = view.findViewById(R.id.tilUsuario)
         tilPassword = view.findViewById(R.id.tilPassword)
         etUsuario   = view.findViewById(R.id.etUsuario)
@@ -46,55 +44,70 @@ class LoginFragment : Fragment() {
     }
 
     private fun iniciarSesion() {
-
-        // Limpiar errores previos
-        tilUsuario.error = null
+        tilUsuario.error  = null
         tilPassword.error = null
 
-        val usuario  = etUsuario.text.toString().trim()
+        val correo   = etUsuario.text.toString().trim()
         val password = etPassword.text.toString().trim()
 
-        // Validaciones
         when {
-            usuario.isEmpty() -> {
-                tilUsuario.error = "Ingresa tu usuario"
-                etUsuario.requestFocus()
-                return
-            }
-            usuario.length < 4 -> {
-                tilUsuario.error = "Mínimo 4 caracteres"
-                etUsuario.requestFocus()
-                return
-            }
-            password.isEmpty() -> {
-                tilPassword.error = "Ingresa tu contraseña"
-                etPassword.requestFocus()
-                return
-            }
-            password.length < 4 -> {
-                tilPassword.error = "Mínimo 4 caracteres"
-                etPassword.requestFocus()
-                return
-            }
+            correo.isEmpty()          -> { tilUsuario.error = "Ingresa tu correo"; return }
+            !correo.contains("@")     -> { tilUsuario.error = "Correo inválido"; return }
+            password.isEmpty()        -> { tilPassword.error = "Ingresa tu contraseña"; return }
+            password.length < 4      -> { tilPassword.error = "Mínimo 4 caracteres"; return }
         }
 
         progressBar.visibility = View.VISIBLE
         btnLogin.isEnabled = false
 
-        if (usuario == "admin" && password == "1234") {
-            progressBar.visibility = View.GONE
-            btnLogin.isEnabled = true
-            Toast.makeText(requireContext(), "✅ Bienvenido $usuario", Toast.LENGTH_SHORT).show()
+        lifecycleScope.launch {
+            try {
+                // MockAPI no tiene login real: buscamos todos los usuarios
+                // y validamos correo + password en la app
+                val response = RetrofitClient.api.obtenerUsuarios()
 
-            val intent = Intent(requireContext(), DashboardActivity::class.java)
+                if (response.isSuccessful) {
+                    val usuarios = response.body() ?: emptyList()
+                    val usuario = usuarios.find {
+                        it.correo == correo && it.password == password && it.activo
+                    }
 
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+                    if (usuario != null) {
+                        // Guardar sesión
+                        requireContext()
+                            .getSharedPreferences("session", Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("token",      usuario.id) // usamos id como token
+                            .putString("userId",     usuario.id)
+                            .putString("userNombre", usuario.nombre)
+                            .putString("userRol",    usuario.rol)
+                            .apply()
 
-        } else {
-            progressBar.visibility = View.GONE
-            btnLogin.isEnabled = true
-            tilPassword.error = "Usuario o contraseña incorrectos"
+                        Toast.makeText(requireContext(),
+                            "✅ Bienvenido ${usuario.nombre}", Toast.LENGTH_SHORT).show()
+
+                        startActivity(
+                            Intent(requireContext(), DashboardActivity::class.java).apply {
+                                flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                                        Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            }
+                        )
+                    } else {
+                        tilPassword.error = "Correo o contraseña incorrectos"
+                    }
+
+                } else {
+                    Toast.makeText(requireContext(),
+                        "❌ Error del servidor", Toast.LENGTH_SHORT).show()
+                }
+
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(),
+                    "❌ Sin conexión al servidor", Toast.LENGTH_SHORT).show()
+            } finally {
+                progressBar.visibility = View.GONE
+                btnLogin.isEnabled = true
+            }
         }
     }
 }
